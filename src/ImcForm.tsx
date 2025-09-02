@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import "./index.css"; 
 
 interface ImcResult {
   imc: number;
@@ -19,7 +20,7 @@ function ImcForm() {
     const pesoNum = parseFloat(peso);
 
     if (isNaN(alturaNum) || isNaN(pesoNum) || alturaNum <= 0 || pesoNum <= 0) {
-      setError("Por favor, ingresa valores válidos (positivos y numéricos).");
+      setError("⚠️ Ingresa valores válidos (positivos y numéricos).");
       setResultado(null);
       return;
     }
@@ -32,54 +33,54 @@ function ImcForm() {
       setResultado(response.data);
       setError("");
     } catch (err) {
-      setError(
-        "Error al calcular el IMC. Verifica si el backend está corriendo."
-      );
+      setError("❌ Error al calcular el IMC. Verifica si el backend está corriendo.");
       setResultado(null);
     }
   };
 
   return (
-    <div>
-      <div>
-        <h1>Calculadora de IMC</h1>
+    <div className="container">
+      <div className="card">
+        <div className="icon">🔥</div>
+        <div className="kcal">Kcal</div>
+        <h1>Calculadora IMC</h1>
+
         <form onSubmit={handleSubmit}>
-          <div>
-            <label>Altura (m):</label>
-            <input
-              type="number"
-              value={altura}
-              onChange={(e) => setAltura(e.target.value)}
-              step="0.01"
-              min="0.1"
-            />
-          </div>
-          <div>
-            <label>Peso (kg):</label>
-            <input
-              type="number"
-              value={peso}
-              onChange={(e) => setPeso(e.target.value)}
-              min="1"
-            />
-          </div>
+          <label>Ingresa tu altura (en m):</label>
+          <input
+            type="number"
+            value={altura}
+            onChange={(e) => setAltura(e.target.value)}
+            step="0.01"
+            min="0.1"
+            placeholder="Ej: 1.65"
+          />
+
+          <label>Ingresa tu peso (en kg):</label>
+          <input
+            type="number"
+            value={peso}
+            onChange={(e) => setPeso(e.target.value)}
+            min="1"
+            placeholder="Ej: 68"
+          />
+
           <button type="submit">Calcular</button>
         </form>
 
         {resultado && (
-          <div>
-            <p>IMC: {resultado.imc.toFixed(2)}</p>
-            <p>Categoría: {resultado.categoria}</p>
+          <div className="resultado success">
+            <p><strong>IMC:</strong> {resultado.imc.toFixed(2)}</p>
+            <p><strong>Categoría:</strong> {resultado.categoria}</p>
           </div>
         )}
 
         {error && (
-          <div>
+          <div className="resultado error">
             <p>{error}</p>
           </div>
         )}
       </div>
-      
     </div>
   );
 }
