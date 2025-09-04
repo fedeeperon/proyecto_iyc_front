@@ -1,6 +1,6 @@
-import axios from "axios";
 import React, { useState } from "react";
 import "./index.css"; 
+import { api } from "./api"; 
 
 interface ImcResult {
   imc: number;
@@ -20,19 +20,20 @@ function ImcForm() {
     const pesoNum = parseFloat(peso);
 
     if (isNaN(alturaNum) || isNaN(pesoNum) || alturaNum <= 0 || pesoNum <= 0) {
-      setError("⚠️ Ingresa valores válidos (positivos y numéricos).");
+      setError("⚠ Ingresa valores válidos (positivos y numéricos).");
       setResultado(null);
       return;
     }
 
     try {
-      const response = await axios.post("http://localhost:3000/imc/calcular", {
+      const response = await api.post("/imc/calcular", {
         altura: alturaNum,
         peso: pesoNum,
       });
       setResultado(response.data);
       setError("");
     } catch (err) {
+      console.error(err);
       setError("❌ Error al calcular el IMC. Verifica si el backend está corriendo.");
       setResultado(null);
     }
