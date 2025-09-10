@@ -6,13 +6,18 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
 }
 
-.container {
+.container-flex {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  justify-content: center;
   width: 100%;
-  max-width: 400px;
+  max-width: 900px;
   padding: 20px;
+  flex-wrap: wrap; /* para móviles */
 }
 
 .card {
@@ -22,6 +27,8 @@ body {
   padding: 30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
+  width: 350px; /* ancho fijo para calculadora */
+  flex-shrink: 0;
 }
 
 .icon {
@@ -94,4 +101,63 @@ button:hover {
 .resultado.error {
   background-color: rgba(255, 0, 0, 0.2);
   border: 1px solid red;
+}
+
+/* --- Historial --- */
+.historial {
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.historial h2 {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.historial table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.historial th,
+.historial td {
+  padding: 10px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.historial th {
+  font-weight: 600;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.historial tr:last-child td {
+  border-bottom: none;
+}
+
+.historial button {
+  margin-top: 10px;
+  width: 100%;
+}
+
+/* --- Responsive --- */
+@media (max-width: 900px) {
+  .container-flex {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card, .historial {
+    width: 90%;
+  }
 }
