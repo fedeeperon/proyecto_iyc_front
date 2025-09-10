@@ -1,3 +1,4 @@
+/* --- Body general --- */
 body {
   margin: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -9,6 +10,7 @@ body {
   min-height: 100vh;
 }
 
+/* --- Contenedor flex --- */
 .container-flex {
   display: flex;
   gap: 20px;
@@ -20,6 +22,7 @@ body {
   flex-wrap: wrap; /* para móviles */
 }
 
+/* --- Card calculadora --- */
 .card {
   background-color: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -27,7 +30,7 @@ body {
   padding: 30px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
-  width: 350px; /* ancho fijo para calculadora */
+  width: 350px;
   flex-shrink: 0;
 }
 
@@ -71,21 +74,46 @@ input::placeholder {
   color: rgba(255, 255, 255, 0.6);
 }
 
+/* --- Select filtrado --- */
+select {
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+select option {
+  color: black;
+}
+
+/* --- Botones generales --- */
 button {
-  background-color: #1e90ff;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
   color: white;
   border: none;
-  padding: 12px;
-  border-radius: 8px;
+  padding: 10px 15px;
+  border-radius: 12px;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 button:hover {
-  background-color: #0f75d3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
+button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Resultados --- */
 .resultado {
   margin-top: 20px;
   padding: 15px;
@@ -145,9 +173,49 @@ button:hover {
   border-bottom: none;
 }
 
-.historial button {
+/* --- Botón Ver más --- */
+.historial .ver-mas {
   margin-top: 10px;
   width: 100%;
+  background: linear-gradient(135deg, #6a11cb, #2575fc);
+  font-weight: 600;
+  border-radius: 12px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.historial .ver-mas:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+/* --- Paginación --- */
+.paginacion {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.paginacion button {
+  background: linear-gradient(135deg, #2575fc, #6a11cb);
+  padding: 8px 14px;
+  font-weight: bold;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.paginacion button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.paginacion button:disabled {
+  background: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.5);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 /* --- Responsive --- */

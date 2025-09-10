@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { api } from "./api";
+import { api } from "./api"; 
 import "./index.css";
 
 interface ImcResult {
@@ -22,7 +22,9 @@ function ImcForm() {
   const [resultado, setResultado] = useState<ImcResult | null>(null);
   const [error, setError] = useState("");
   const [historial, setHistorial] = useState<ImcRegistro[]>([]);
-  const [mostrarTodos, setMostrarTodos] = useState(false); // nuevo estado
+  const [pagina, setPagina] = useState(1);
+  const [porPagina] = useState(3);
+  const [filtroCategoria, setFiltroCategoria] = useState("");
 
   // Obtener historial desde el backend
   const fetchHistorial = async () => {
@@ -64,15 +66,25 @@ function ImcForm() {
     }
   };
 
-  // solo muestra los primeros 10 registros si no está en "mostrarTodos"
-  const historialAMostrar = mostrarTodos ? historial : historial.slice(0, 5);
+  // Filtrar y paginar
+  const registrosFiltrados = historial.filter(item =>
+    filtroCategoria === "" || item.categoria === filtroCategoria
+  );
+
+  const indiceUltimo = pagina * porPagina;
+  const indicePrimero = indiceUltimo - porPagina;
+  const registrosPagina = registrosFiltrados.slice(indicePrimero, indiceUltimo);
+
+  const totalPaginas = Math.ceil(registrosFiltrados.length / porPagina);
 
   return (
     <div className="container-flex">
+      {/* --- CALCULADORA --- */}
       <div className="card">
         <div className="icon">🔥</div>
         <div className="kcal">Kcal</div>
         <h1>Calculadora IMC</h1>
+
         <form onSubmit={handleSubmit}>
           <label>Ingresa tu altura (en m):</label>
           <input
@@ -111,39 +123,47 @@ function ImcForm() {
       </div>
 
       {/* --- HISTORIAL --- */}
-      {historial.length > 0 && (
-        <div className="historial">
-          <h2>📋 Historial de cálculos</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Fecha</th>
-                <th>Peso (kg)</th>
-                <th>Altura (m)</th>
-                <th>IMC</th>
-                <th>Categoría</th>
+      <div className="historial">
+        <h2>📋 Historial de cálculos</h2>
+
+        <label>Filtrar por categoría:</label>
+        <select value={filtroCategoria} onChange={e => { setFiltroCategoria(e.target.value); setPagina(1); }}>
+          <option value="">Todas</option>
+          <option value="Bajo peso">Bajo peso</option>
+          <option value="Normal">Normal</option>
+          <option value="Sobrepeso">Sobrepeso</option>
+          <option value="Obeso">Obeso</option>
+        </select>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Peso (kg)</th>
+              <th>Altura (m)</th>
+              <th>IMC</th>
+              <th>Categoría</th>
+            </tr>
+          </thead>
+          <tbody>
+            {registrosPagina.map(item => (
+              <tr key={item.id}>
+                <td>{new Date(item.fecha).toLocaleString()}</td>
+                <td>{item.peso}</td>
+                <td>{item.altura}</td>
+                <td>{item.imc.toFixed(2)}</td>
+                <td>{item.categoria}</td>
               </tr>
-            </thead>
-            <tbody>
-              {historialAMostrar.map((item) => (
-                <tr key={item.id}>
-                  <td>{new Date(item.fecha).toLocaleString()}</td>
-                  <td>{item.peso}</td>
-                  <td>{item.altura}</td>
-                  <td>{item.imc.toFixed(2)}</td>
-                  <td>{item.categoria}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {/* Botón Ver más / Ver menos */}
-          {historial.length > 10 && (
-            <button onClick={() => setMostrarTodos(!mostrarTodos)}>
-              {mostrarTodos ? "Ver menos" : "Ver más"}
-            </button>
-          )}
+            ))}
+          </tbody>
+        </table>
+
+        <div className="paginacion">
+          <button onClick={() => setPagina(pagina - 1)} disabled={pagina === 1}>Anterior</button>
+          <span>{pagina} / {totalPaginas}</span>
+          <button onClick={() => setPagina(pagina + 1)} disabled={pagina === totalPaginas}>Siguiente</button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
