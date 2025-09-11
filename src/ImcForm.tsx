@@ -132,7 +132,7 @@ function ImcForm() {
           <option value="Bajo peso">Bajo peso</option>
           <option value="Normal">Normal</option>
           <option value="Sobrepeso">Sobrepeso</option>
-          <option value="Obeso">Obeso</option>
+          <option value="Obesidad">Obesidad</option>
         </select>
 
         <table>
