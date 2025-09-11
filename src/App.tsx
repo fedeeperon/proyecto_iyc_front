@@ -1,5 +1,5 @@
 
-import ImcForm from './ImcForm'
+import ImcForm from './components/imc-form';
 
 function App() {
 
