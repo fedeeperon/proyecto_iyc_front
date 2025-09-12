@@ -129,7 +129,7 @@ function ImcForm() {
         <label>Filtrar por categoría:</label>
         <select value={filtroCategoria} onChange={e => { setFiltroCategoria(e.target.value); setPagina(1); }}>
           <option value="">Todas</option>
-          <option value="Bajo peso">Bajo peso</option>
+          <option value="Bajo Peso">Bajo Peso</option>
           <option value="Normal">Normal</option>
           <option value="Sobrepeso">Sobrepeso</option>
           <option value="Obeso">Obeso</option>
