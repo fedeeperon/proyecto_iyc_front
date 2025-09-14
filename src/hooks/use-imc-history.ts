@@ -23,15 +23,20 @@ export function useImcHistory() {
     fetchHistorial();
   }, []);
 
-  // Función para extraer YYYY-MM-DD de item.fecha
-  const formatFecha = (fecha: string) => fecha.slice(0, 10);
+  // Formatea fecha en YYYY-MM-DD en hora local (Argentina)
+  const formatFechaLocal = (fecha: string) => {
+    const d = new Date(fecha);
+    return d.toLocaleDateString("sv-SE", {
+      timeZone: "America/Argentina/Buenos_Aires",
+    });
+  };
 
-  const registrosFiltrados = historial.filter(item => {
+  const registrosFiltrados = historial.filter((item) => {
     const coincideCategoria =
       filtroCategoria === "" || item.categoria === filtroCategoria;
 
     const coincideFecha =
-      filtroFecha === "" || formatFecha(item.fecha) === filtroFecha;
+      filtroFecha === "" || formatFechaLocal(item.fecha) === filtroFecha;
 
     return coincideCategoria && coincideFecha;
   });
