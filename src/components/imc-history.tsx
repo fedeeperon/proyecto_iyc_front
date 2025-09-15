@@ -1,6 +1,7 @@
 import { useImcHistory } from "../hooks/use-imc-history";
 
-function ImcHistory() {
+
+function ImcHistory({ recargaTrigger }: { recargaTrigger?: any }) {
   const {
     registrosPagina,
     pagina,
@@ -10,7 +11,7 @@ function ImcHistory() {
     setFiltroCategoria,
     filtroFecha,
     setFiltroFecha,
-  } = useImcHistory();
+  } = useImcHistory({ recargaTrigger });
 
   return (
     <div className="historial">
@@ -18,7 +19,7 @@ function ImcHistory() {
 
       <div className="filtros">
         <div className="filtro-categoria">
-          <label>Filtrar por categoría:</label>
+          <label>Filtrar por categoría: </label>
           <select
             value={filtroCategoria}
             onChange={(e) => {
@@ -35,7 +36,7 @@ function ImcHistory() {
         </div>
 
         <div className="filtro-fecha">
-          <label>Filtrar por fecha:</label>
+          <label>Filtrar por fecha: </label>
           <input
             type="date"
             value={filtroFecha}

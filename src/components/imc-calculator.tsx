@@ -1,11 +1,15 @@
 import { useImcCalculator } from "../hooks/use-imc-calculator";
 
-function ImcCalculator() {
+
+function ImcCalculator({ onCalculoExitoso }: { onCalculoExitoso?: () => void }) {
   const { altura, setAltura, peso, setPeso, resultado, error, calculateImc } = useImcCalculator();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     await calculateImc();
+    setTimeout(() => {
+      if (!error && onCalculoExitoso) onCalculoExitoso();
+    }, 0);
   };
 
   return (

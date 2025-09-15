@@ -2,7 +2,11 @@ import { useState, useEffect } from "react";
 import { ImcRegister } from "../interfaces/imc-register";
 import { imcService } from "../services/imc-service";
 
-export function useImcHistory() {
+type UseImcHistoryProps = {
+  recargaTrigger?: any;
+};
+
+export function useImcHistory({ recargaTrigger }: UseImcHistoryProps = {}) {
   const [historial, setHistorial] = useState<ImcRegister[]>([]);
   const [pagina, setPagina] = useState(1);
   const [porPagina] = useState(3);
@@ -21,7 +25,7 @@ export function useImcHistory() {
 
   useEffect(() => {
     fetchHistorial();
-  }, []);
+  }, [recargaTrigger]);
 
   // Formatea fecha en YYYY-MM-DD en hora local (Argentina)
   const formatFechaLocal = (fecha: string) => {
