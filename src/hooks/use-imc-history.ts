@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Imc } from "../interfaces/imc-register";
+import { ImcRegister } from "../interfaces/imc-register";
 import { imcService } from "../services/imc-service";
 
 type UseImcHistoryProps = {
@@ -7,7 +7,7 @@ type UseImcHistoryProps = {
 };
 
 export function useImcHistory({ recargaTrigger }: UseImcHistoryProps = {}) {
-  const [historial, setHistorial] = useState<Imc[]>([]);
+  const [historial, setHistorial] = useState<ImcRegister[]>([]);
   const [pagina, setPagina] = useState(1);
   const [porPagina] = useState(3);
   const [error, setError] = useState<string>("");
@@ -24,7 +24,6 @@ export function useImcHistory({ recargaTrigger }: UseImcHistoryProps = {}) {
       setHistorial(data);
     } catch (err: any) {
       console.error("❌ Error al cargar historial", err);
-      // Mostrar el mensaje de error del backend, o un mensaje genérico
       const errorMessage = err.response?.data?.message || "Error al cargar el historial";
       setError(errorMessage);
     } finally {
@@ -44,7 +43,7 @@ export function useImcHistory({ recargaTrigger }: UseImcHistoryProps = {}) {
     });
   };
 
-  const registrosFiltrados = historial.filter((item) => {
+  const registrosFiltrados = historial.filter((item: ImcRegister) => {
     const coincideCategoria =
       filtroCategoria === "" || item.categoria === filtroCategoria;
 
