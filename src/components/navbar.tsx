@@ -13,12 +13,22 @@ export default function Navbar() {
     <nav className="navbar">
       <h1 className="welcome-message">¡Bienvenido!</h1>
       <div className="navbar-menu">
-        <button className="navbar-item">Estadísticas</button>
-        <button className="navbar-item">Mi perfil</button>
+        <button className="navbar-item" onClick={() => navigate('/estadisticas')}>
+          Estadísticas
+        </button>
+        <button className="navbar-item" onClick={() => navigate('/mi-perfil')}>
+          Mi perfil
+        </button>
         <button className="navbar-item logout-btn" onClick={handleLogout}>
           Cerrar Sesión
         </button>
-        <div className="user-avatar">👤</div>
+        <div
+          className="user-avatar"
+          onClick={() => navigate('/mi-perfil')}
+          style={{ cursor: 'pointer' }}
+        >
+          👤
+        </div>
       </div>
     </nav>
   );

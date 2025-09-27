@@ -1,4 +1,6 @@
-export interface ImcRegister {
+// src/interfaces/imc-estadisticas.ts
+
+export interface Imc {
   id: number;
   peso: number;
   altura: number;
@@ -7,3 +9,8 @@ export interface ImcRegister {
   fecha: string;
 }
 
+export interface Estadisticas {
+  imcMensual: { mes: string; imc: number }[];
+  variacionPeso: { mes: string; peso: number }[];
+  promedioIMC: number;
+}

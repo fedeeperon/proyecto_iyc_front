@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ImcRegister } from "../interfaces/imc-register";
+import { Imc } from "../interfaces/imc-register";
 import { imcService } from "../services/imc-service";
 
 type UseImcHistoryProps = {
@@ -7,7 +7,7 @@ type UseImcHistoryProps = {
 };
 
 export function useImcHistory({ recargaTrigger }: UseImcHistoryProps = {}) {
-  const [historial, setHistorial] = useState<ImcRegister[]>([]);
+  const [historial, setHistorial] = useState<Imc[]>([]);
   const [pagina, setPagina] = useState(1);
   const [porPagina] = useState(3);
   const [error, setError] = useState<string>("");

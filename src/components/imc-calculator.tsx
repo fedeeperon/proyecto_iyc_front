@@ -14,7 +14,7 @@ function ImcCalculator({ onCalculoExitoso }: { onCalculoExitoso?: () => void }) 
 
   return (
     <div className="card imc-calculator">
-      <div className="icon">⚖</div>
+      <div className="icon"></div>
       <h1 className="centered-title">Calculadora IMC</h1>
       <form onSubmit={handleSubmit}>
         <label>Ingresa tu altura (en m):</label>

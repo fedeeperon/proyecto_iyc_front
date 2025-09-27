@@ -64,18 +64,18 @@
 }
 
 .imc-calculator .icon {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   margin: 0 auto 15px;
-  background: linear-gradient(135deg, #8b5cf6, #7c3aed);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  font-size: 2rem;
-  font-weight: bold;
+  background: url('../resources/icono_calorias.png') no-repeat center center;
+  background-size: contain; /* asegura que la imagen se vea completa */
 }
+
+
 
 .imc-calculator h1 {
   color: #4c1d95;

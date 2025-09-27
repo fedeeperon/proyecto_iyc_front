@@ -18,7 +18,7 @@ function ImcHistory({ recargaTrigger }: { recargaTrigger?: any }) {
   return (
     <div className="historial">
       <div className="historial-header">
-        <h2>Historial 📊</h2>
+        <h2>Historial</h2>
       </div>
       <div className="filtros">
         <div className="filtro-categoria">
