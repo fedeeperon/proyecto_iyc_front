@@ -95,6 +95,69 @@ https://proyecto-iyc-back.onrender.com/
 3. Realizar Deploy y obtener el dominio público para acceder a la app. 
 
 https://proyecto-iyc-front.vercel.app/
+
+## Autenticación
+- Regístrate: `POST /auth/register { email, password }`
+- Login: `POST /auth/login { email, password }` → `{ access_token }`
+- Rutas protegidas: usar header `Authorization: Bearer <token>`
+
+## Endpoints principales
+
+### Auth (`/auth`)
+- `POST /auth/register` → Crea usuario y devuelve token.
+- `POST /auth/login` → Valida credenciales y devuelve token.
+
+### Users (`/users`) [Protegido]
+- `GET /users/profile` → Perfil del usuario autenticado.
+- `GET /users` → Lista de usuarios.
+- `PATCH /users/:id` → Actualiza usuario (email/password).
+
+### IMC (`/imc`) [Protegido]
+- `POST /imc/calcular` → Calcula y guarda IMC.
+  - Body: `{ peso: number (0<p<500), altura: number (0<a<3) }`
+  - Respuesta (ejemplo): `{ peso, altura, imc, categoria, fecha }`
+- `GET /imc/historial?esDescendente=true&skip=0&take=10` → Historial paginado del usuario.
+- `GET /imc/estadisticas` → Estadísticas agregadas para gráficos.
+
+## Estadísticas para gráficos (Recharts)
+En el frontend (React) utilizamos Recharts para visualizar los datos de `/imc/estadisticas`.
+
+Respuesta de ejemplo:
+
+```json
+{
+  "imcMensual": [ { "mes": "ene", "imc": 23.1 }, { "mes": "feb", "imc": 22.8 } ],
+  "promedioIMC": 22.95,
+  "variacionPeso": [ { "mes": "ene", "peso": 72.4 }, { "mes": "feb", "peso": 71.8 } ]
+}
+```
+
+Uso sugerido con Recharts:
+- `LineChart` o `AreaChart` con `dataKey="imc"` sobre `imcMensual`.
+- `BarChart` o `LineChart` con `dataKey="peso"` sobre `variacionPeso`.
+- Eje X: `mes`. Orden esperado: `ene, feb, mar, abr, may, jun, jul, ago, sept, oct, nov, dic`.
+
+
+
+## Capturas de pantalla 
+
+Vista previa 
+
+![Dashboard - Home](public/Inicio_secion.jpg)
+
+![Dashboard - Historial IMC](public/Historial.jpg)
+
+![Dashboard - Estadísticas IMC](public/Estadistidas.jpg)
+
+## Pruebas
+
+```powershell
+npm test
+npm run test:e2e
+npm run test:cov
+```
+
+
 ## Equipo de Desarrollo 
 
 * Gomez Redondo, Laureano
