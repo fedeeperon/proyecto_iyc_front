@@ -1,8 +1,8 @@
 import { useImcCalculator } from "../hooks/use-imc-calculator";
-
+import '../styles/imc-calculator.css';
 
 function ImcCalculator({ onCalculoExitoso }: { onCalculoExitoso?: () => void }) {
-  const { altura, setAltura, peso, setPeso, resultado, error, calculateImc } = useImcCalculator();
+  const { altura, setAltura, peso, setPeso, resultado, error, loading, calculateImc } = useImcCalculator();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,10 +13,9 @@ function ImcCalculator({ onCalculoExitoso }: { onCalculoExitoso?: () => void }) 
   };
 
   return (
-    <div className="card">
-      <div className="icon">🔥</div>
-      <div className="kcal">Kcal</div>
-      <h1>Calculadora IMC</h1>
+    <div className="card imc-calculator">
+      <div className="icon">⚖</div>
+      <h1 className="centered-title">Calculadora IMC</h1>
       <form onSubmit={handleSubmit}>
         <label>Ingresa tu altura (en m):</label>
         <input
@@ -25,6 +24,7 @@ function ImcCalculator({ onCalculoExitoso }: { onCalculoExitoso?: () => void }) 
           onChange={(e) => setAltura(e.target.value)}
           step="0.01"
           placeholder="Ej: 1.65"
+          disabled={loading}
         />
         <label>Ingresa tu peso (en kg):</label>
         <input
@@ -32,8 +32,11 @@ function ImcCalculator({ onCalculoExitoso }: { onCalculoExitoso?: () => void }) 
           value={peso}
           onChange={(e) => setPeso(e.target.value)}
           placeholder="Ej: 68"
+          disabled={loading}
         />
-        <button type="submit">Calcular</button>
+        <button type="submit" disabled={loading}>
+          {loading ? 'Calculando...' : 'Calcular'}
+        </button>
       </form>
 
       {error && (

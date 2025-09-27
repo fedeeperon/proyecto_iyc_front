@@ -10,16 +10,25 @@ export function useImcHistory({ recargaTrigger }: UseImcHistoryProps = {}) {
   const [historial, setHistorial] = useState<ImcRegister[]>([]);
   const [pagina, setPagina] = useState(1);
   const [porPagina] = useState(3);
+  const [error, setError] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
   const [filtroCategoria, setFiltroCategoria] = useState("");
   const [filtroFecha, setFiltroFecha] = useState(""); // Filtro por fecha
 
   const fetchHistorial = async () => {
     try {
+      setLoading(true);
+      setError("");
       const data = await imcService.getHistorial();
       setHistorial(data);
-    } catch (err) {
+    } catch (err: any) {
       console.error("❌ Error al cargar historial", err);
+      // Mostrar el mensaje de error del backend, o un mensaje genérico
+      const errorMessage = err.response?.data?.message || "Error al cargar el historial";
+      setError(errorMessage);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -60,5 +69,7 @@ export function useImcHistory({ recargaTrigger }: UseImcHistoryProps = {}) {
     filtroFecha,
     setFiltroFecha,
     fetchHistorial,
+    error,
+    loading,
   };
 }

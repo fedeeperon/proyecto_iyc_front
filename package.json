@@ -12,10 +12,12 @@
   "dependencies": {
     "@eslint/config-array": "^0.21.0",
     "@eslint/object-schema": "^2.1.6",
+    "@types/react-router-dom": "^5.3.3",
     "axios": "^1.11.0",
     "glob": "^11.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^7.9.1",
     "rimraf": "^6.0.1"
   },
   "devDependencies": {

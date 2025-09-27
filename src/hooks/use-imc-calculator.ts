@@ -7,12 +7,13 @@ export function useImcCalculator() {
   const [peso, setPeso] = useState("");
   const [resultado, setResultado] = useState<ImcResult | null>(null);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const calculateImc = async () => {
     const alturaNum = parseFloat(altura);
     const pesoNum = parseFloat(peso);
 
-
+    // Validaciones del frontend
     if (!/^\d+(\.\d{1,2})?$/.test(peso)) {
       setError("⚠ El peso debe tener como máximo 2 decimales.");
       setResultado(null);
@@ -34,15 +35,31 @@ export function useImcCalculator() {
       return;
     }
 
+    setLoading(true);
+    setError("");
+
     try {
       const result = await imcService.calcularImc(alturaNum, pesoNum);
       setResultado(result);
-      setError("");
-    } catch (err) {
-      setError("❌ Error al calcular el IMC. Verifica si el backend está corriendo.");
+    } catch (err: any) {
+      console.error("❌ Error al calcular el IMC:", err);
+      // Mostrar mensaje de error del backend
+      const errorMessage = err.response?.data?.message || "Error al calcular el IMC";
+      setError(errorMessage);
       setResultado(null);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return { altura, setAltura, peso, setPeso, resultado, error, calculateImc };
+  return { 
+    altura, 
+    setAltura, 
+    peso, 
+    setPeso, 
+    resultado, 
+    error, 
+    loading,
+    calculateImc 
+  };
 }
