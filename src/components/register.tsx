@@ -64,12 +64,6 @@ export default function Register() {
                 {success}
               </div>
             )}
-            <label>Nombre completo</label>
-            <input
-              type="text"
-              placeholder="Juan José Vanzetti"
-              disabled={loading}
-            />
             <label>Correo electrónico</label>
             <input
               type="email"
