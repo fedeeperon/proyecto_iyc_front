@@ -1,0 +1,52 @@
+.imc-estadisticas-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.graficos-flex {
+  display: flex;
+  gap: 20px; /* espacio entre gráficos */
+  flex-wrap: wrap; /* para que se acomoden en varias filas si no caben */
+  margin-bottom: 30px;
+}
+
+.grafico-marco {
+  background-color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1 1 45%; /* cada gráfico ocupa aproximadamente la mitad del ancho */
+  min-width: 300px; /* evita que queden demasiado pequeños en pantallas chicas */
+}
+.volver-btn {
+  background-color: #f0f0f0;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 15px;
+  transition: background-color 0.2s;
+}
+
+.volver-btn:hover {
+  background-color: #dcdcdc;
+}
+
+.imc-estadisticas-page {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+
+  /* Fondo con imagen */
+  background-image: url('../resources/fondo_lila.png');
+  background-size: cover;       /* Ajusta la imagen para cubrir todo */
+  background-repeat: no-repeat; /* No repetir */
+  background-position: center;  /* Centrado */
+  min-height: 100vh;            /* Ocupa al menos toda la altura de la ventana */
+}
+
+.imc-estadisticas-page h1 {
+  text-align: center;
+  color: #4c1d95; /* opcional, si querés mantener el color */
+  margin-bottom: 20px; /* opcional, para separar del resto del contenido */
+}
