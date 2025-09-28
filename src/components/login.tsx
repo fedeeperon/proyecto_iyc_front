@@ -37,11 +37,6 @@ export default function Login() {
         <div className="card">
           <h2>Iniciar sesión</h2>
           <form onSubmit={handleSubmit}>
-            {error && (
-              <div className="auth-error">
-                {error}
-              </div>
-            )}
             <input
               type="email"
               placeholder="Usuario"
@@ -58,6 +53,13 @@ export default function Login() {
               required
               disabled={loading}
             />
+
+            {error && (
+              <div className="auth-error">
+                {error}
+              </div>
+            )}
+
             <button type="submit" disabled={loading}>
               {loading ? 'Iniciando sesión...' : 'Ingresar'}
             </button>

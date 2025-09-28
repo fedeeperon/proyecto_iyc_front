@@ -110,11 +110,6 @@
   border-bottom: 1px solid #e5e7eb;
 }
 
-.tabla-historial tbody tr:hover {
-  background: #f3f4f6;
-  transform: translateY(-1px);
-}
-
 .tabla-historial tbody tr:last-child {
   border-bottom: none;
 }

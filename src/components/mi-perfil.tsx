@@ -54,9 +54,6 @@ export default function MiPerfil() {
   return (
     <div className="mi-perfil-page">
       <div className="mi-perfil-container">
-        <button className="volver-btn" onClick={() => navigate(-1)}>
-          ← Volver
-        </button>
 
         <h2>Mi Perfil</h2>
 
@@ -78,6 +75,10 @@ export default function MiPerfil() {
 
         <button onClick={handleChangePassword} disabled={loading}>
           {loading ? 'Actualizando...' : 'Cambiar contraseña'}
+        </button>
+
+        <button className="volver-btn" onClick={() => navigate(-1)}>
+          ← Volver
         </button>
       </div>
 

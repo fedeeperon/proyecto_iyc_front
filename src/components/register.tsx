@@ -54,25 +54,17 @@ export default function Register() {
         <div className="card">
           <h2>Crear cuenta</h2>
           <form onSubmit={handleSubmit}>
-            {error && (
-              <div className="auth-error">
-                {error}
-              </div>
-            )}
-            {success && (
-              <div className="auth-success">
-                {success}
-              </div>
-            )}
-            <label>Correo electrónico</label>
-            <input
-              type="email"
-              placeholder="vanzettijuan@gmail.com"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              required
-              disabled={loading}
-            />
+            <div className="mail-row">
+              <label>Correo electrónico</label>
+              <input
+                type="email"
+                placeholder="vanzettijuan@gmail.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+                disabled={loading}
+              />
+            </div>
             <div className="password-row">
               <div style={{flex: 1}}>
                 <label>Contraseña</label>
@@ -97,6 +89,18 @@ export default function Register() {
                 />
               </div>
             </div>
+
+            {error && (
+              <div className="auth-error">
+                {error}
+              </div>
+            )}
+            {success && (
+              <div className="auth-success">
+                {success}
+              </div>
+            )}
+
             <button type="submit" disabled={loading}>
               {loading ? 'Creando cuenta...' : 'Crear cuenta'}
             </button>

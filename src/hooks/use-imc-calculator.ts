@@ -21,7 +21,18 @@ export function useImcCalculator() {
       setResultado(result);
     } catch (err: any) {
       console.error("❌ Error al calcular el IMC:", err);
-      const errorMessage = err.response?.data?.message || "Error al calcular el IMC";
+      let errorMessage = "Error al calcular el IMC";
+      
+      // Si el error tiene múltiples mensajes
+      if (err.response?.data?.message) {
+        const messages = err.response.data.message;
+        if (Array.isArray(messages)) {
+          errorMessage = messages.join('\n');
+        } else {
+          errorMessage = messages;
+        }
+      }
+      
       setError(errorMessage);
       setResultado(null);
     } finally {

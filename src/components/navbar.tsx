@@ -22,13 +22,6 @@ export default function Navbar() {
         <button className="navbar-item logout-btn" onClick={handleLogout}>
           Cerrar Sesión
         </button>
-        <div
-          className="user-avatar"
-          onClick={() => navigate('/mi-perfil')}
-          style={{ cursor: 'pointer' }}
-        >
-          👤
-        </div>
       </div>
     </nav>
   );

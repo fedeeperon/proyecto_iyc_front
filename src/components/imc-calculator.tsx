@@ -41,7 +41,9 @@ function ImcCalculator({ onCalculoExitoso }: { onCalculoExitoso?: () => void }) 
 
       {error && (
         <div className="resultado error" role="alert" aria-live="polite">
-          <p>{error}</p>
+          <div style={{ whiteSpace: 'pre-line' }}>
+            {error}
+          </div>
         </div>
       )}
 
