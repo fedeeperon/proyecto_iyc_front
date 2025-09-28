@@ -3,7 +3,7 @@
 import axios from 'axios';
 import {ImcMensual, ImcEstadisticas } from '../interfaces/imc-estadisticas';
 
-const API_URL = 'http://localhost:3000/imc'; // Cambiá por tu URL del backend
+const API_URL = process.env.VITE_API_URL;
 
 export async function getHistorial(): Promise<ImcMensual[]> {
   const token = localStorage.getItem('token');
