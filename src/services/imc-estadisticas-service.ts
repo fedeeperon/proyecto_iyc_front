@@ -1,13 +1,10 @@
 // src/services/imc-estadisticas-service.ts
-
-import axios from 'axios';
-import {ImcMensual, ImcEstadisticas } from '../interfaces/imc-estadisticas';
-
-const API_URL = process.env.VITE_API_URL;
+import { api } from '../api';
+import { ImcMensual, ImcEstadisticas } from '../interfaces/imc-estadisticas';
 
 export async function getHistorial(): Promise<ImcMensual[]> {
   const token = localStorage.getItem('token');
-  const res = await axios.get(`${API_URL}/historial`, {
+  const res = await api.get('/historial', {
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
@@ -15,8 +12,9 @@ export async function getHistorial(): Promise<ImcMensual[]> {
 
 export async function getEstadisticas(): Promise<ImcEstadisticas> {
   const token = localStorage.getItem('token');
-  const res = await axios.get(`${API_URL}/estadisticas`, {
+  const res = await api.get('/estadisticas', {
     headers: { Authorization: `Bearer ${token}` },
   });
   return res.data;
 }
+
