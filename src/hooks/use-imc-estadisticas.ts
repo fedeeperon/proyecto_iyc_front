@@ -1,45 +1,41 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
+import { api } from '../api';
+import { ImcHistorial, ImcEstadisticas } from '../interfaces/imc-estadisticas';
 
 export function useImcEstadisticas() {
-  const [historial, setHistorial] = useState<any[]>([]);
-  const [estadisticas, setEstadisticas] = useState<any>(null);
+  const [historial, setHistorial] = useState<ImcHistorial[]>([]);
+  const [estadisticas, setEstadisticas] = useState<ImcEstadisticas | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem('token');
 
     if (!token) {
-      setError("Usuario no autenticado");
+      setError('Usuario no autenticado');
       setLoading(false);
       return;
     }
 
     const headers = {
-      "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
 
     Promise.all([
-      fetch("http://localhost:3000/imc/historial", { headers }).then((r) => {
-        if (!r.ok) throw new Error("Error al cargar historial");
-        return r.json();
-      }),
-      fetch("http://localhost:3000/imc/estadisticas", { headers }).then((r) => {
-        if (!r.ok) throw new Error("Error al cargar estadísticas");
-        return r.json();
-      }),
+      api.get('/imc/historial', { headers }),
+      api.get('/imc/estadisticas', { headers }),
     ])
-      .then(([historialData, estadisticasData]) => {
-        setHistorial(historialData);
-        setEstadisticas(estadisticasData);
+      .then(([historialRes, estadisticasRes]) => {
+        setHistorial(historialRes.data);
+        setEstadisticas(estadisticasRes.data);
       })
       .catch((err) => {
         console.error(err);
-        setError(err.message || "Error al cargar historial/estadísticas");
+        setError(err.message || 'Error al cargar historial/estadísticas');
       })
       .finally(() => setLoading(false));
   }, []);
 
   return { historial, estadisticas, loading, error };
 }
+

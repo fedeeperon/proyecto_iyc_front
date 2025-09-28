@@ -1,4 +1,3 @@
-// src/components/mi-perfil.tsx
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
@@ -6,9 +5,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../styles/mi-perfil.css';
 import { updatePassword } from '../services/user-service';
 import { UserProfile } from '../interfaces/user-profile';
+import { api } from '../api';
 
 export default function MiPerfil() {
-  const navigate = useNavigate(); // <-- necesario para el botón Volver
+  const navigate = useNavigate();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [newPassword, setNewPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -20,11 +20,10 @@ export default function MiPerfil() {
       return;
     }
 
-    fetch('http://localhost:3000/users/profile', {
+    api.get('/users/profile', {
       headers: { Authorization: `Bearer ${token}` },
     })
-      .then(res => res.json())
-      .then(data => setUser(data))
+      .then(res => setUser(res.data))
       .catch(() => toast.error('No se pudo cargar el perfil'));
   }, []);
 
@@ -86,3 +85,4 @@ export default function MiPerfil() {
     </div>
   );
 }
+
